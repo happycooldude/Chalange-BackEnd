@@ -61,7 +61,7 @@ function createlist($name){
     <?
     $result = readlists();
     foreach ($result as $result) {
-      echo $result["name"];?> <i class="fas fa-trash-alt" id="<?echo $result["id"];?>"></i> <i class="fas fa-pencil-alt" id="<?echo $result["id"];?>"></i>
+      echo $result["name"];?> <i class="fas fa-trash-alt" id="<?echo $result["id"];?>"></i> <a href="update.php"><i class="fas fa-pencil-alt" id="<?echo $result["id"];?>"></i></a>
       <?
       echo "<br>";
     } ?>
