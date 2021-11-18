@@ -1,44 +1,6 @@
 <?
-function createDatabase()
-{
-  $servername = "localhost";
-  $username = "root";
-  $password = "mysql";
-  $dbname = "todolist";
+require 'db.php';
 
-  try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    return $conn;
-    echo "Connected successfully";
-  } catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-  }
-}
-
-function readlists(){
-  $dbConn = createDatabase();
-  $stmt = $dbConn->prepare("SELECT * FROM `lists`");
-  $stmt->execute();
-  $result = $stmt->fetchAll();
-  $dbConn = null;
-  return $result;
-}
-
-function deletelist($id){
-  $dbConn = createDatabase();
-  $stmt = $dbConn->prepare("DELETE FROM `lists` WHERE id='$id'");
-  $stmt->execute();
-  $dbConn = null;
-}
-
-function createlist($name){
-  $dbConn = createDatabase();
-  $stmt = $dbConn->prepare("INSERT INTO `lists`(`name`) VALUES ('$name')");
-  $stmt->execute();
-  $dbConn = null;
-}
 ?>
 
 <!DOCTYPE html>
@@ -54,15 +16,20 @@ function createlist($name){
 
   <h1 id="header">Todo list</h1>
 
-  <h2>Create new list <a href="create.php"><i title="Create new list" class="far fa-plus-square"></i></a></h2>
+  <h2 id="createlist">Create new list <a href="createlist.php"><i title="Create new list" class="far fa-plus-square"></i></a></h2>
 
   <div id="lists">
     <h2>Lists</h2>
     <?
-    $result = readlists();
-    foreach ($result as $result) {
-      echo $result["name"];?> <i class="fas fa-trash-alt" id="<?echo $result["id"];?>"></i> <a href="update.php"><i class="fas fa-pencil-alt" id="<?echo $result["id"];?>"></i></a>
-      <?
+    $allLists = readlists();
+
+    foreach ($allLists as $list) { ?>
+      <a href="list.php?id=<? echo $list["id"]; ?>"><? echo $list["name"]; ?></a>
+      <a href="deletelist.php?id=<? echo $list["id"] ?>">
+        <i class="fas fa-trash-alt"></i></a>
+      <a href="updatelist.php?id=<? echo $list["id"] ?>">
+        <i class="fas fa-pencil-alt" id="<? echo $list["id"]; ?>"></i></a>
+    <?
       echo "<br>";
     } ?>
   </div>

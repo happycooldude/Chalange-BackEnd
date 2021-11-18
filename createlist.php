@@ -1,21 +1,15 @@
 <?
-function createDatabase()
-{
-    $servername = "localhost";
-    $username = "root";
-    $password = "mysql";
-    $dbname = "todolist";
+    require 'db.php';
 
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $conn;
-        echo "Connected successfully";
-    } catch (PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-    }
-} ?>
+  // haal de lijst op voor het gegeven id
+  $id = $_GET["id"];
+  $current_list = readList($id);
+
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        createlist($_POST['name']);
+        header("Location: index.php");
+      }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,11 +25,12 @@ function createDatabase()
     <a href="index.php"><i title="Go back to previous page" id="previousbtn" class="fas fa-arrow-circle-left"></i></a>
 
     <div id="createlistform">
-        <form action="index.php" method="post">
-            Name: <input type="text" name="name" value="<?=$data["name"]?>"><br>
+        <form method="post">
+            Name: <input type="text" name="name"><br>
             <input type="submit">
         </form>
     </div>
+    <footer id="footer">&copy; Pieter Huisman 99047256 <? date('Y') ?></footer>
 </body>
 
 </html>
