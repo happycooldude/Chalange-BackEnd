@@ -1,9 +1,12 @@
 <?
+//laad de pagina alleen als het een connectie kan maken met de database en alle bijhorende SQL functiess
 require 'db.php';
+//pak het id uit de URL van de pagina
 $listid = $_GET["id"];
 $currentlist = readlist($listid);
 $alltasks = readtasks($listid);
 
+//als de server een post request krijgt voer de sort functie uit op de database en laat de data op de gesorteerde volgorde zien
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $alltasks = sorttasks($listid, $_POST['type'], $_POST['order']);
 }
@@ -42,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="tasks">
         <h2>tasks</h2>
         <?
+        //laat voor elk item in de database de juiste data zien
         foreach ($alltasks as $task) {
             echo 'name: ' . $task["name"] . '<br>';
             echo 'description: ' . $task["description"] . '<br>';
@@ -54,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="updatetask.php?id=<? echo $task["id"] ?>">
                 <i class="fas fa-pencil-alt" id="<? echo $task["id"]; ?>"></i></a>
         <?
+            echo "<br>";
             echo "<br>";
         } ?>
     </div>

@@ -35,14 +35,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div id="createlistform">
         <form id="taskform" method="post">
-            Name: <input type="text" name="name" value="<?=$current_task["name"]?>"><br>
-            <textarea maxlength="255" rows="4" cols="50" name="description" form="taskform"><?=$current_task["description"]?></textarea><br>
-            time: <input type="time" name="time" value="<?=$current_task["time"]?>"><br>
-            Date: <input type="date" name="date" value="<?=$current_task["date"]?>"><br>
-            Status: <select name="status" value="<?=$current_task['status']?>">
-            <option value="Complete">Complete</option>
-            <option value="Ongoing">Ongoing</option>
-            <option value="On_hold">On hold</option></select>
+            Name: <input type="text" name="name" value="<?= $current_task["name"] ?>"><br>
+            <textarea maxlength="255" rows="4" cols="50" name="description" form="taskform"><?= $current_task["description"] ?></textarea><br>
+            time: <input type="time" name="time" value="<?= $current_task["time"] ?>"><br>
+            Date: <input type="date" name="date" value="<?= $current_task["date"] ?>"><br>
+            Status: <select name="status" value="<?= $current_task['status'] ?>">
+                <option value="Complete">Complete</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="On_hold">On hold</option>
+            </select>
             <input type="submit" value="Send">
         </form>
     </div>

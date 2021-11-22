@@ -1,14 +1,15 @@
 <?
-    require 'db.php';
+//laad de pagina alleen als het een connectie kan maken met de database en alle bijhorende SQL functiess
+require 'db.php';
 
-  // haal de lijst op voor het gegeven id
-  $id = $_GET["id"];
-  $current_list = readList($id);
+// haal de lijst op voor het gegeven id
+$id = $_GET["id"];
+$current_list = readList($id);
 
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        createlist($_POST['name']);
-        header("Location: index.php");
-      }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    createlist($_POST['name']);
+    header("Location: index.php");
+}
 ?>
 
 <!DOCTYPE html>

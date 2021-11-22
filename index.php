@@ -1,4 +1,5 @@
 <?
+//laad de pagina alleen als het een connectie kan maken met de database en alle bijhorende SQL functies
 require 'db.php';
 
 ?>
@@ -15,21 +16,23 @@ require 'db.php';
 <body>
 
   <h1 id="header">Todo list</h1>
-
+    
   <h2 id="createlist">Create new list <a href="createlist.php"><i title="Create new list" class="far fa-plus-square"></i></a></h2>
 
   <div id="lists">
     <h2>Lists</h2>
     <?
+    //zet de data van de lijst database in een array
     $allLists = readlists();
-
+    //maak voor elk item wat in de database zit een aparte rij met de juiste informatie
     foreach ($allLists as $list) { ?>
-      <a href="list.php?id=<? echo $list["id"]; ?>"><? echo $list["name"]; ?></a>
+      <a href="list.php?id=<? echo $list["id"]; ?>"><? echo $list["name"]; ?></a> 
       <a href="deletelist.php?id=<? echo $list["id"] ?>">
         <i class="fas fa-trash-alt"></i></a>
       <a href="updatelist.php?id=<? echo $list["id"] ?>">
         <i class="fas fa-pencil-alt" id="<? echo $list["id"]; ?>"></i></a>
     <?
+      echo "<br>";
       echo "<br>";
     } ?>
   </div>

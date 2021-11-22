@@ -1,4 +1,6 @@
 <?
+//laad de pagina alleen als het een connectie kan maken met de database en alle bijhorende SQL functiess
+
 require 'db.php';
 
 // deze pagina kan alleen aangeroepen worden als er een ID in de URL staat, als volgt:
@@ -12,6 +14,7 @@ if (array_key_exists('id', $_GET) == false) {
 $id = $_GET["id"];
 $current_task = readtask($id);
 
+//als de server een post request krijgt voer de delete task functie uit op de database
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     deletetask($id);
     header("Location: index.php");
